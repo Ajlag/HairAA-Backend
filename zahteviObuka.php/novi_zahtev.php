@@ -7,31 +7,25 @@ $postdata = file_get_contents("php://input");
 if(isset($postdata) && !empty($postdata))
 {
   $request = json_decode($postdata);
+  $idKursa=$request->idKursa;
   $email = $request->email;
-  $idUsluge=$request->idUsluge;
-  $vrsta = $request->vrsta;
-  $datum = $request->datum;
-  $vreme = $request->vreme;
   $status = $request->status;
   
-  if(!preg_match("/^([a-zA-Z0-9 .,ćčČĆŽžŠš]{3,25}+)$/",$vrsta)) {
+  if(!preg_match("/^([a-zA-Z0-9 .,ćčČĆŽžŠš]{3,25}+)$/",$status)) {
     http_response_code(400);
     echo json_encode("Uneti podaci nisu validni.");
   }
   else {
 
-  $upit = "INSERT INTO zahtevi (email,idUsluge,vrsta,datum,vreme,status) VALUES ('$email','$idUsluge','$vrsta','$datum','$vreme', '$status')";
+  $upit = "INSERT INTO Zahtev_za_kurs (idKursa,email,status) VALUES ('$idKursa','$email', '$status')";
   $rez  = mysqli_query($conn, $upit);
 
   if($rez) {
     http_response_code(201);
     $proizvod = [
       'idZahteva' => mysqli_insert_id($conn),
+      'idKursa'=>$idKursa,
       'email' => $email,
-      'idUsluge'=>$idUsluge,
-      'vrsta' => $vrsta,
-      'vreme' => $vreme,
-      'datum' => $datum,
       'status'=> $status
     ];
     echo json_encode($proizvod);

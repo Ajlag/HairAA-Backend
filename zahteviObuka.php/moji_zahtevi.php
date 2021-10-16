@@ -10,7 +10,8 @@ if(!$email) {
 
 else {
 
-    $upit = "SELECT  * FROM zahtevi WHERE email = '$email'";
+    $upit = "SELECT  Zahtev_za_kurs.idZahteva,Zahtev_za_kurs.idKursa,Zahtev_za_kurs.status,kurs.naziv,kurs.datum,kurs.vreme
+    FROM Zahtev_za_kurs, kurs WHERE Zahtev_za_kurs.email = '$email'";
 
     $rez = mysqli_query($conn, $upit);
 

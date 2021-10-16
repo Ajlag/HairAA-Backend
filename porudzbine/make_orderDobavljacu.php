@@ -12,7 +12,7 @@ if(isset($postdata) && !empty($postdata))
   $email = $request->email;
   $uplaceno = $request->uplaceno;
 
-  $upit = "INSERT INTO porudzbina (IdPorudzbine,datumP,ukupnaCena,email,uplaceno) VALUES (NULL,'$datumP','$ukupnaCena','$email','$uplaceno')";
+  $upit = "INSERT INTO porudzbinaDobavljacu (IdPorudzbine,datumP,ukupnaCena,email,uplaceno) VALUES (NULL,'$datumP','$ukupnaCena','$email','$uplaceno')";
   $rez  = mysqli_query($conn, $upit);
 
   if($rez) {

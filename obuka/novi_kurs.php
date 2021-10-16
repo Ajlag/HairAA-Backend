@@ -7,38 +7,36 @@ $postdata = file_get_contents("php://input");
 if(isset($postdata) && !empty($postdata))
 {
   $request = json_decode($postdata);
-  $email = $request->email;
-  $idUsluge=$request->idUsluge;
-  $vrsta = $request->vrsta;
+  $naziv=$request->naziv;
+  $mentor = $request->mentor;
   $datum = $request->datum;
   $vreme = $request->vreme;
-  $status = $request->status;
+  $opis = $request->opis;
   
-  if(!preg_match("/^([a-zA-Z0-9 .,ćčČĆŽžŠš]{3,25}+)$/",$vrsta)) {
+  if(!preg_match("/^([a-zA-Z0-9 .,ćčČĆŽžŠš]{3,25}+)$/",$mentor)) {
     http_response_code(400);
     echo json_encode("Uneti podaci nisu validni.");
   }
   else {
 
-  $upit = "INSERT INTO zahtevi (email,idUsluge,vrsta,datum,vreme,status) VALUES ('$email','$idUsluge','$vrsta','$datum','$vreme', '$status')";
+  $upit = "INSERT INTO kurs (naziv,mentor,datum,vreme,opis) VALUES ('$naziv','$mentor','$datum','$vreme', '$opis')";
   $rez  = mysqli_query($conn, $upit);
 
   if($rez) {
     http_response_code(201);
     $proizvod = [
-      'idZahteva' => mysqli_insert_id($conn),
-      'email' => $email,
-      'idUsluge'=>$idUsluge,
-      'vrsta' => $vrsta,
-      'vreme' => $vreme,
+      'IdKursa' => mysqli_insert_id($conn),
+      'naziv'=>$naziv,
+      'mentor' => $mentor,
       'datum' => $datum,
-      'status'=> $status
+      'vreme' => $vreme,
+      'opis'=> $opis
     ];
     echo json_encode($proizvod);
   }
   else {
       http_response_code(404);
-      echo "Slanje novog zahteva nije uspelo.";
+      echo "Unos nove obuke nije uspeo.";
   }
 
   }

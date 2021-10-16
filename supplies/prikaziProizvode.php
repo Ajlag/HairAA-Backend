@@ -2,14 +2,14 @@
 
 require '../dbconnect.php';
 
-$email = $_GET['email'];
+$idDobavljaca = $_GET['idDobavljaca'];
 
-if(!$email) {
+if(!$idDobavljaca) {
     return http_response_code(400);
 }
 
 else {
-   $upit = "SELECT email,ime,prezime,telefon FROM musterija WHERE email = '$email' LIMIT 1";
+   $upit = "SELECT nazivP FROM kupovina WHERE idDobavljaca = '$idDobavljaca' LIMIT 1";
    $rez = mysqli_query($conn, $upit);
    if($rez) {
        $current = mysqli_fetch_assoc($rez);

@@ -16,7 +16,7 @@ if(isset($postdata) && !empty($postdata))
     if(!preg_match("/^([a-zA-Z ćčČĆ]{3,30}+)$/",$ime) || !preg_match("/^([a-zA-Z ćčČĆ]{3,30}+)$/",$prezime)||
     !preg_match("/^([a-zA-Z ćčČĆ0-9,]{20,150}+)$/",$adresa) || !preg_match("/^([0-9+ ]{6,15}+)$/",$telefon)) {
         http_response_code(400);
-        echo "Uneti podaci nisu validni.";
+        echo "Uneti podaci nisu validni,Proverite adresu.";
     }
     else {
   
